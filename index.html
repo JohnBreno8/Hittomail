@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Hottomail</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/scripts/estilos/estilo.css">
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="flex items-center justify-between px-4 py-3 glass fixed top-0 left-0 right-0 z-30">
+    <h1 class="text-white text-2xl font-audiowide select-none">Hottomail</h1>
+    <div class="flex items-center space-x-4">
+      <div class="relative">
+        <input type="text" id="searchInput" class="rounded-md bg-black bg-opacity-50 border border-gray-700 px-2 py-1 text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600 w-40 sm:w-64" placeholder="Pesquisar e-mails...">
+        <i class="fas fa-search absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+      <button class="text-gray-300 hover:text-white focus:outline-none" id="mobileMenuBtn">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+  </header>
+  <!-- Sidebar (Desktop) -->
+  <aside class="hidden md:flex flex-col w-64 glass fixed top-16 bottom-0 left-0 border-r border-gray-800 z-20">
+    <nav class="flex-1 flex flex-col p-4 space-y-2 text-gray-300 font-semibold text-lg">
+      <button class="text-left hover:text-white transition flex items-center" id="inboxBtn">
+        <i class="fas fa-inbox mr-2"></i> Inbox <span id="inboxUnread" class="ml-auto text-xs bg-blue-600 rounded-full px-2 py-1 hidden">0</span>
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="sentBtn">
+        <i class="fas fa-paper-plane mr-2"></i> Enviados
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="draftsBtn">
+        <i class="fas fa-file-alt mr-2"></i> Rascunhos
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="starredBtn">
+        <i class="fas fa-star mr-2"></i> Favoritos
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="contactsBtn">
+        <i class="fas fa-address-book mr-2"></i> Contatos
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="spamBtn">
+        <i class="fas fa-exclamation-circle mr-2"></i> Spam <span id="spamUnread" class="ml-auto text-xs bg-blue-600 rounded-full px-2 py-1 hidden">0</span>
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="trashBtn">
+        <i class="fas fa-trash-alt mr-2"></i> Lixeira
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="composeBtn">
+        <i class="fas fa-plus-circle mr-2"></i> Novo E-mail
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="settingsBtn">
+        <i class="fas fa-cog mr-2"></i> Configurações
+      </button>
+      <button class="text-left hover:text-white transition flex items-center" id="walletBtn">
+        <i class="fas fa-wallet mr-2"></i> Carteira
+      </button>
+    </nav>
+  </aside>
+  <!-- Mobile menu -->
+  <nav class="fixed top-14 left-0 right-0 bg-black bg-opacity-90 glass backdrop-blur-md border-t border-gray-700 z-40 hidden flex-col space-y-2 px-4 py-3 text-gray-300 font-semibold text-lg md:hidden" id="mobileMenu">
+    <button class="text-left hover:text-white transition flex items-center" id="mobileInboxBtn">
+      <i class="fas fa-inbox mr-2"></i> Inbox <span id="mobileInboxUnread" class="ml-auto text-xs bg-blue-600 rounded-full px-2 py-1 hidden">0</span>
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileSentBtn">
+      <i class="fas fa-paper-plane mr-2"></i> Enviados
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileDraftsBtn">
+      <i class="fas fa-file-alt mr-2"></i> Rascunhos
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileStarredBtn">
+      <i class="fas fa-star mr-2"></i> Favoritos
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileContactsBtn">
+      <i class="fas fa-address-book mr-2"></i> Contatos
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileSpamBtn">
+      <i class="fas fa-exclamation-circle mr-2"></i> Spam <span id="mobileSpamUnread" class="ml-auto text-xs bg-blue-600 rounded-full px-2 py-1 hidden">0</span>
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileTrashBtn">
+      <i class="fas fa-trash-alt mr-2"></i> Lixeira
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileComposeBtn">
+      <i class="fas fa-plus-circle mr-2"></i> Novo E-mail
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileSettingsBtn">
+      <i class="fas fa-cog mr-2"></i> Configurações
+    </button>
+    <button class="text-left hover:text-white transition flex items-center" id="mobileWalletBtn">
+      <i class="fas fa-wallet mr-2"></i> Carteira
+    </button>
+  </nav>
+  <main class="flex flex-1 flex-col pt-16 md:ml-64">
+    <!-- Toolbar -->
+    <div class="flex items-center justify-between px-4 py-2 glass border-b border-gray-800">
+      <div class="flex items-center space-x-2">
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="selectAllBtn" title="Selecionar todos">
+          <i class="fas fa-check-square"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="refreshBtn" title="Atualizar">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="deleteBtn" title="Excluir">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="markReadBtn" title="Marcar como lido">
+          <i class="fas fa-envelope-open-text"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="markUnreadBtn" title="Marcar como não lido">
+          <i class="fas fa-envelope"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="starBtn" title="Favoritar">
+          <i class="fas fa-star"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="moveToSpamBtn" title="Mover para spam">
+          <i class="fas fa-exclamation-circle"></i>
+        </button>
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="archiveBtn" title="Arquivar">
+          <i class="fas fa-archive"></i>
+        </button>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button class="text-gray-400 hover:text-white transition focus:outline-none" id="sortBtn" title="Ordenar">
+          <i class="fas fa-sort"></i>
+        </button>
+        <div class="text-gray-400 text-xs font-semibold" id="emailCountText">0 e-mails</div>
+      </div>
+    </div>
+    <!-- Email list -->
+    <div class="flex-1 overflow-y-auto bg-black bg-opacity-70 glass" id="emailList">
+      <ul class="divide-y divide-gray-800" id="emailsUl"></ul>
+    </div>
+    <!-- Email detail view -->
+    <div class="fixed inset-0 bg-black bg-opacity-95 glass hidden flex-col p-4 z-50" id="emailDetailView">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-2">
+          <button class="text-gray-300 hover:text-white focus:outline-none" id="backToListBtn">
+            <i class="fas fa-arrow-left fa-lg"></i>
+          </button>
+          <button class="text-gray-400 hover:text-white transition focus:outline-none" id="detailDeleteBtn" title="Excluir">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button class="text-gray-400 hover:text-white transition focus:outline-none" id="detailStarBtn" title="Favoritar">
+            <i class="fas fa-star"></i>
+          </button>
+          <button class="text-gray-400 hover:text-white transition focus:outline-none" id="detailReplyBtn" title="Responder">
+            <i class="fas fa-reply"></i>
+          </button>
+          <button class="text-gray-400 hover:text-white transition focus:outline-none" id="detailForwardBtn" title="Encaminhar">
+            <i class="fas fa-share"></i>
+          </button>
+          <button class="text-gray-400 hover:text-white transition focus:outline-none" id="detailArchiveBtn" title="Arquivar">
+            <i class="fas fa-archive"></i>
+          </button>
+        </div>
+        <div class="text-gray-400 text-xs font-semibold" id="emailDetailDate"></div>
+      </div>
+      <div class="flex-1 overflow-y-auto" id="emailDetailContent">
+        <p class="text-gray-500 text-center mt-20 select-none">Selecione um e-mail para visualizar</p>
+      </div>
+    </div>
+    <!-- Compose modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden" id="composeModal">
+      <div class="glass w-full max-w-3xl rounded-lg shadow-lg p-6 relative">
+        <button class="absolute top-3 right-3 text-gray-400 hover:text-white focus:outline-none" id="closeComposeBtn" title="Fechar">
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-white text-xl font-audiowide mb-4">Novo E-mail</h2>
+        <form class="space-y-4 text-gray-300 text-sm" id="composeForm">
+          <div>
+            <label class="block mb-1 font-semibold" for="toInput">Para:</label>
+            <input class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="toInput" name="to" placeholder="exemplo@hittomail.an" type="email"/>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="ccInput">Cc:</label>
+            <input class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="ccInput" name="cc" placeholder="exemplo@hittomail.an " type="email"/>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="bccInput">Cco:</label>
+            <input class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="bccInput" name="bcc" placeholder="exemplo@hittomail.an " type="email"/>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="subjectInput">Assunto:</label>
+            <input class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="subjectInput" name="subject" placeholder="Assunto do e-mail" required type="text"/>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="bodyInput">Mensagem:</label>
+            <textarea class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-gray-600" id="bodyInput" name="body" placeholder="Escreva sua mensagem aqui..." required rows="10"></textarea>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="attachmentInput">Anexo:</label>
+            <input type="file" class="w-full text-gray-400" id="attachmentInput" name="attachment" multiple accept=".pdf,.doc,.docx,.jpg,.png"/>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 transition font-semibold focus:outline-none text-sm" id="saveDraftBtn" type="button">Salvar Rascunho</button>
+            <button class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 transition font-semibold focus:outline-none text-sm" id="cancelComposeBtn" type="button">Cancelar</button>
+            <button class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold focus:outline-none text-sm" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Settings modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden" id="settingsModal">
+      <div class="glass w-full max-w-md rounded-lg shadow-lg p-6 relative">
+        <button class="absolute top-3 right-3 text-gray-400 hover:text-white focus:outline-none" id="closeSettingsBtn" title="Fechar">
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-white text-xl font-audiowide mb-4">Configurações</h2>
+        <form class="space-y-4 text-gray-300 text-sm" id="settingsForm">
+          <div>
+            <label class="block mb-1 font-semibold" for="themeSelect">Tema:</label>
+            <select class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="themeSelect" name="theme">
+              <option value="dark">Escuro</option>
+              <option value="light">Claro</option>
+            </select>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="signatureInput">Assinatura:</label>
+            <textarea class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-gray-600" id="signatureInput" name="signature" placeholder="Sua assinatura" rows="4"></textarea>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="languageSelect">Idioma:</label>
+            <select class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="languageSelect" name="language">
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+          <div>
+            <label class="block mb-1 font-semibold" for="notificationsSelect">Notificações:</label>
+            <select class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" id="notificationsSelect" name="notifications">
+              <option value="all">Todos os e-mails</option>
+              <option value="important">Apenas importantes</option>
+              <option value="none">Nenhum</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button class="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 transition font-semibold focus:outline-none text-sm" id="cancelSettingsBtn" type="button">Cancelar</button>
+            <button class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold focus:outline-none text-sm" type="submit">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Wallet modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden" id="walletModal">
+      <div class="glass w-full max-w-md rounded-lg shadow-lg p-6 relative">
+        <button class="absolute top-3 right-3 text-gray-400 hover:text-white focus:outline-none" id="closeWalletBtn" title="Fechar">
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-white text-xl font-audiowide mb-4">Carteira</h2>
+        <div class="text-gray-300 text-sm space-y-4">
+          <p>Saldo: <span id="walletBalance">0.00</span> HCoins</p>
+          <div>
+            <label class="block mb-1 font-semibold" for="addFundsInput">Adicionar Fundos:</label>
+            <div class="flex space-x-2">
+              <input type="number" id="addFundsInput" class="w-full rounded-md bg-black bg-opacity-50 border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600" placeholder="0.00" min="0" step="0.01"/>
+              <button class="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold focus:outline-none text-sm" id="addFundsBtn">Adicionar</button>
+            </div>
+          </div>
+          <div>
+            <p class="font-semibold">Histórico de Transações:</p>
+            <ul id="transactionHistory" class="mt-2 space-y-2 text-xs"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/scripts/aplicações/aplicação.js"></script> 
+ </body>
+</html>
